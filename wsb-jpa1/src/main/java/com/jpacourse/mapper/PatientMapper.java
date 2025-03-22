@@ -9,12 +9,18 @@ public final class PatientMapper {
         if (patientEntity == null) {
             return null;
         }
+
         final PatientTO patientTO = new PatientTO();
         patientTO.setPatientNumber(patientEntity.getPatientNumber());
         patientTO.setFirstName(patientEntity.getFirstName());
         patientTO.setLastName(patientEntity.getLastName());
-        // patientTO.setDateOfPassing(patientEntity.getDateOfPassing());
-        // patientTO.setVisits(patientEntity.getVisits().stream().map(VisitMapper::mapToTO).toList(););
+        patientTO.setAddressTO(AddressMapper.mapToTO(patientEntity.getAddressEntity()));
+        patientTO.setTelephoneNumber(patientEntity.getTelephoneNumber());
+        patientTO.setEmail(patientEntity.getEmail());
+        patientTO.setDateOfBirth(patientEntity.getDateOfBirth());
+        patientTO.setDateOfPassing(patientEntity.getDateOfPassing());
+        patientTO.setVisits(patientEntity.getVisits().stream().map(VisitMapper::mapToTO).toList());
+
         return patientTO;
     }
 }
