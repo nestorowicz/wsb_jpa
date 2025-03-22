@@ -16,7 +16,7 @@ public class PatientController  {
         this.patientService = patientService;
     }
 
-    @GetMapping("/address/{id}")
+    @GetMapping("/patients/{id}")
     PatientTO findById(@PathVariable final Long id) {
         final PatientTO patient = patientService.findById(id);
         if (patient != null) {
