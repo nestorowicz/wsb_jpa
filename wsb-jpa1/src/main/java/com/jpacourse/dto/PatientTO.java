@@ -15,7 +15,7 @@ public class PatientTO implements Serializable {
     private String email;
     private LocalDate dateOfBirth;
     private LocalDate dateOfPassing;
-    private List<VisitTO> visits;
+    private List<PatientVisitTO> visits;
 
     public String getPatientNumber() {
         return patientNumber;
@@ -81,11 +81,11 @@ public class PatientTO implements Serializable {
         this.dateOfPassing = dateOfPassing;
     }
 
-    public List<VisitTO> getVisits() {
+    public List<PatientVisitTO> getVisits() {
         return visits;
     }
 
-    public void setVisits(List<VisitTO> visits) {
+    public void setVisits(List<PatientVisitTO> visits) {
         this.visits = Collections.unmodifiableList(visits);
     }
 }
