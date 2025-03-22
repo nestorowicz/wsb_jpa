@@ -35,7 +35,7 @@ public class PatientEntity {
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false, name = "address_id", referencedColumnName = "id")
-	private AddressEntity addressEntity;
+	private AddressEntity address;
 
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<VisitEntity> visits = new ArrayList<>();
@@ -104,12 +104,12 @@ public class PatientEntity {
 		this.dateOfPassing = dateOfPassing;
 	}
 
-    public AddressEntity getAddressEntity() {
-        return addressEntity;
+    public AddressEntity getAddress() {
+        return address;
     }
 
-    public void setAddressEntity(AddressEntity addressEntity) {
-        this.addressEntity = addressEntity;
+    public void setAddress(AddressEntity addressEntity) {
+        this.address = addressEntity;
     }
 
     public List<VisitEntity> getVisits() {
