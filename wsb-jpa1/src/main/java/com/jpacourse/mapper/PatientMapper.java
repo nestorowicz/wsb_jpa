@@ -14,7 +14,7 @@ public final class PatientMapper {
         patientTO.setPatientNumber(patientEntity.getPatientNumber());
         patientTO.setFirstName(patientEntity.getFirstName());
         patientTO.setLastName(patientEntity.getLastName());
-        patientTO.setAddressTO(AddressMapper.mapToTO(patientEntity.getAddressEntity()));
+        patientTO.setAddressTO(AddressMapper.mapToTO(patientEntity.getAddress()));
         patientTO.setTelephoneNumber(patientEntity.getTelephoneNumber());
         patientTO.setEmail(patientEntity.getEmail());
         patientTO.setDateOfBirth(patientEntity.getDateOfBirth());
