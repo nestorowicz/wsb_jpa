@@ -5,7 +5,7 @@ import com.jpacourse.persistance.enums.TreatmentType;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class VisitTO {
+public class PatientVisitTO {
 
     private LocalDateTime time;
 
