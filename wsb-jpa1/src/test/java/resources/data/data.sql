@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS patient
     email            VARCHAR(255),
     patient_number   VARCHAR(255)                            NOT NULL,
     date_of_birth    date                                    NOT NULL,
+    date_of_passing  date,
     address_id       BIGINT                                  NOT NULL,
     CONSTRAINT pk_patient PRIMARY KEY (id)
 );
@@ -116,8 +117,8 @@ VALUES (22, 'Connor', 'Sullivan', '123999123', 'csulivan@gmail.com', '98730', '1
 INSERT INTO PATIENT (ID, FIRST_NAME, LAST_NAME, TELEPHONE_NUMBER, EMAIL, PATIENT_NUMBER, DATE_OF_BIRTH, ADDRESS_ID)
 VALUES (23, 'Sarah', 'Williams', '555234567', 'swilliams@email.com', '43215', '1985-11-15', 902);
 
-INSERT INTO PATIENT (ID, FIRST_NAME, LAST_NAME, TELEPHONE_NUMBER, EMAIL, PATIENT_NUMBER, DATE_OF_BIRTH, ADDRESS_ID)
-VALUES (24, 'Robert', 'Chen', '555345678', 'rchen@email.com', '54327', '1978-04-22', 905);
+INSERT INTO PATIENT (ID, FIRST_NAME, LAST_NAME, TELEPHONE_NUMBER, EMAIL, PATIENT_NUMBER, DATE_OF_BIRTH, DATE_OF_PASSING, ADDRESS_ID)
+VALUES (24, 'Robert', 'Chen', '555345678', 'rchen@email.com', '54327', '1978-04-22', '2025-03-01', 905);
 
 INSERT INTO VISIT (ID, DESCRIPTION, TIME, DOCTOR_ID, PATIENT_ID)
 VALUES (48, 'Follow-up', '2025-04-03 10:15:00', 123, 22);
