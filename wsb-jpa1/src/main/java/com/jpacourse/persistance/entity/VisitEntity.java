@@ -1,6 +1,8 @@
 package com.jpacourse.persistance.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -16,6 +18,17 @@ public class VisitEntity {
 
 	@Column(nullable = false)
 	private LocalDateTime time;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false, name = "doctor_id")
+	private DoctorEntity doctor;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false, name = "patient_id")
+	private PatientEntity patient;
+
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MedicalTreatmentEntity> medicalTreatments = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -41,4 +54,37 @@ public class VisitEntity {
 		this.time = time;
 	}
 
+	public DoctorEntity getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
+	}
+
+	public PatientEntity getPatient() {
+		return patient;
+	}
+
+	public void setPatient(PatientEntity patient) {
+		this.patient = patient;
+	}
+
+	public List<MedicalTreatmentEntity> getMedicalTreatments() {
+		return medicalTreatments;
+	}
+
+	public void setMedicalTreatments(List<MedicalTreatmentEntity> medicalTreatments) {
+		this.medicalTreatments = medicalTreatments;
+	}
+
+	public void addMedicalTreatment(MedicalTreatmentEntity medicalTreatment) {
+		medicalTreatments.add(medicalTreatment);
+		medicalTreatment.setVisit(this);
+	}
+
+	public void removeMedicalTreatment(MedicalTreatmentEntity medicalTreatment) {
+		medicalTreatments.remove(medicalTreatment);
+		medicalTreatment.setVisit(null);
+	}
 }
