@@ -22,7 +22,7 @@ public class AddressDaoTest
         AddressEntity addressEntity = addressDao.findOne(901L);
         // then
         assertThat(addressEntity).isNotNull();
-        assertThat(addressEntity.getPostalCode()).isEqualTo("60-400");
+        assertThat(addressEntity.getPostalCode()).isEqualTo("10001");
     }
 
     @Transactional
