@@ -1,7 +1,7 @@
 package com.jpacourse.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class PatientTO implements Serializable {
     private String lastName;
     private String patientNumber;
     private List<VisitTO> visits;
-    private LocalDateTime dateOfPassing;
+    private LocalDate dateOfPassing;
 
     public String getFirstName() {
         return firstName;
@@ -45,11 +45,11 @@ public class PatientTO implements Serializable {
         this.visits = Collections.unmodifiableList(visits);
     }
 
-    public LocalDateTime getDateOfPassing() {
+    public LocalDate getDateOfPassing() {
         return dateOfPassing;
     }
 
-    public void setDateOfPassing(LocalDateTime dateOfPassing) {
+    public void setDateOfPassing(LocalDate dateOfPassing) {
         this.dateOfPassing = dateOfPassing;
     }
 }

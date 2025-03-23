@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController("/patients")
 public class PatientController  {
 
     private final PatientService patientService;
@@ -16,7 +16,7 @@ public class PatientController  {
         this.patientService = patientService;
     }
 
-    @GetMapping("/address/{id}")
+    @GetMapping("/{id}")
     PatientTO findById(@PathVariable final Long id) {
         final PatientTO patient = patientService.findById(id);
         if (patient != null) {

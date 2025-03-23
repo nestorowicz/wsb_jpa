@@ -13,8 +13,8 @@ public final class PatientMapper {
         patientTO.setPatientNumber(patientEntity.getPatientNumber());
         patientTO.setFirstName(patientEntity.getFirstName());
         patientTO.setLastName(patientEntity.getLastName());
-        // patientTO.setDateOfPassing(patientEntity.getDateOfPassing());
-        // patientTO.setVisits(patientEntity.getVisits().stream().map(VisitMapper::mapToTO).toList(););
+        patientTO.setDateOfPassing(patientEntity.getDateOfPassing());
+        patientTO.setVisits(patientEntity.getVisits().stream().map(VisitMapper::mapToTO).toList());
         return patientTO;
     }
 }

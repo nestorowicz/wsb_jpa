@@ -11,10 +11,10 @@ VALUES (123, 'John', 'Smith', '123123123', 'jsmith@gmail.com', '123123', 'SURGEO
        (125, 'Michael', 'Rodriguez', '555789012', 'mrodriguez@hospital.com', '835672', 'DERMATOLOGIST', 904),
        (126, 'Laura', 'Chen', '555678901', 'lchen@hospital.com', '946783', 'OCULIST', 905);
 
-INSERT INTO PATIENT (ID, FIRST_NAME, LAST_NAME, TELEPHONE_NUMBER, EMAIL, PATIENT_NUMBER, DATE_OF_BIRTH, ADDRESS_ID)
-VALUES (22, 'Connor', 'Sullivan', '123999123', 'csulivan@gmail.com', '98730', '1990-08-03', 903),
-       (23, 'Sarah', 'Williams', '555234567', 'swilliams@email.com', '43215', '1985-11-15', 902),
-       (24, 'Robert', 'Chen', '555345678', 'rchen@email.com', '54327', '1978-04-22', 905);
+INSERT INTO PATIENT (ID, FIRST_NAME, LAST_NAME, TELEPHONE_NUMBER, EMAIL, PATIENT_NUMBER, DATE_OF_BIRTH, DATE_OF_PASSING, ADDRESS_ID)
+VALUES (22, 'Connor', 'Sullivan', '123999123', 'csulivan@gmail.com', '98730', '1990-08-03', NULL, 903),
+       (23, 'Sarah', 'Williams', '555234567', 'swilliams@email.com', '43215', '1985-11-15', NULL, 902),
+       (24, 'Robert', 'Chen', '555345678', 'rchen@email.com', '54327', '1978-04-22', '2025-03-01', 905);
 
 INSERT INTO VISIT (ID, DESCRIPTION, TIME, DOCTOR_ID, PATIENT_ID)
 VALUES (48, 'Follow-up', '2025-04-03 10:15:00', 123, 22),
