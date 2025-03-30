@@ -32,7 +32,7 @@ public class PatientServiceImpl implements PatientService {
     public void deleteById(Long id) throws PatientNotFoundException {
         try {
             patientDao.delete(id);
-        } catch (IllegalArgumentException | EntityNotFoundException ex) {
+        } catch (EntityNotFoundException ex) {
             throw new PatientNotFoundException(id);
         }
     }
