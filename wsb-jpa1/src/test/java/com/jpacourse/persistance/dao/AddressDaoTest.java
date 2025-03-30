@@ -53,7 +53,7 @@ public class AddressDaoTest {
     @Sql("/data/addresses.sql")
     public void shouldFindAllAddresses() {
         // GIVEN
-        int entitiesCount = 5;
+        int entitiesCount = 7;
 
         // WHEN
         List<AddressEntity> addresses = addressDao.findAll();
