@@ -29,7 +29,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void deleteById(Long id) throws PatientNotFoundException {
+    public void deleteById(Long id) {
         try {
             patientDao.delete(id);
         } catch (EntityNotFoundException ex) {
