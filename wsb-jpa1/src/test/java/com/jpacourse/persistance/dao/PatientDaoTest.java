@@ -14,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -107,7 +108,7 @@ public class PatientDaoTest {
     })
     public void shouldFindAllPatients() {
         // GIVEN
-        int patientsCount = 3;
+        int patientsCount = 5;
 
         // WHEN
         List<PatientEntity> found = patientDao.findAll();
@@ -115,6 +116,79 @@ public class PatientDaoTest {
         // THEN
         assertThat(found).isNotNull();
         assertThat(found).hasSize(patientsCount);
+    }
+
+    @Test
+    @Sql(scripts = {
+            "/data/addresses.sql",
+            "/data/patients.sql"
+    })
+    public void shouldFindAllPatientsByLastName() {
+        // GIVEN
+        int patientsWithSameLastNameCount = 3;
+
+        // WHEN
+        List<PatientEntity> found = patientDao.findAllByLastName("Chen");
+
+        // THEN
+        assertThat(found).isNotNull();
+        assertThat(found).hasSize(patientsWithSameLastNameCount);
+        assertThat(found).filteredOn("lastName", "Chen").isNotNull();
+    }
+
+    @Test
+    @Sql(scripts = {
+            "/data/addresses.sql",
+            "/data/patients.sql",
+            "/data/doctors.sql",
+            "/data/visits.sql"
+    })
+    public void shouldFindAllPatientsWithMoreThan1Visit() {
+        // GIVEN
+        int patientsWithMoreThan1VisitCount = 1;
+
+        // WHEN
+        List<PatientEntity> found = patientDao.findAllByVisitsCountGreaterThan(1);
+
+        // THEN
+        assertThat(found).isNotNull();
+        assertThat(found).hasSize(patientsWithMoreThan1VisitCount);
+    }
+
+    @Test
+    @Sql(scripts = {
+            "/data/addresses.sql",
+            "/data/patients.sql"
+    })
+    public void shouldFindAllDeceasedPatientsAfterDate_1Patient() {
+        // GIVEN
+        int deceasedPatientsCount = 1;
+        LocalDate dateOfPassingParam = LocalDate.of(1990, 4, 11);
+
+        // WHEN
+        List<PatientEntity> found = patientDao.findAllByDateOfPassingNotNullAndAfter(dateOfPassingParam);
+
+        // THEN
+        assertThat(found).isNotNull();
+        assertThat(found).hasSize(deceasedPatientsCount);
+    }
+
+    @Test
+    @Sql(scripts = {
+            "/data/addresses.sql",
+            "/data/patients.sql"
+    })
+    public void shouldFindAllDeceasedPatientsAfterDate_emptyList() {
+        // GIVEN
+        int deceasedPatientsCount = 0;
+        LocalDate dateOfPassingParam = LocalDate.of(2025, 3, 1);
+
+        // WHEN
+        List<PatientEntity> found = patientDao.findAllByDateOfPassingNotNullAndAfter(dateOfPassingParam);
+
+        // THEN
+        assertThat(found).isNotNull();
+        assertThat(found).hasSize(deceasedPatientsCount);
     }
 
     @Test
