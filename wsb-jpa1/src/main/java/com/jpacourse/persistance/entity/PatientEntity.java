@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import static jakarta.persistence.FetchType.EAGER;
 
 @Entity
 @Table(name = "PATIENT")
@@ -37,7 +41,8 @@ public class PatientEntity {
 	@JoinColumn(nullable = false, name = "address_id", referencedColumnName = "id")
 	private AddressEntity address;
 
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = EAGER)
+	@Fetch(FetchMode.JOIN)
 	private List<VisitEntity> visits = new ArrayList<>();
 
 	public Long getId() {

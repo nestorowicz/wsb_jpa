@@ -104,6 +104,40 @@ public class PatientDaoTest {
     @Test
     @Sql(scripts = {
             "/data/addresses.sql",
+            "/data/patients.sql",
+            "/data/doctors.sql",
+            "/data/visits.sql",
+            "/data/medical-treatments.sql"
+    })
+    public void shouldFindPatientByIdWithMultipleVisits() {
+        // GIVEN
+        long patientId = 22L;
+
+        // WHEN
+        PatientEntity found = patientDao.findOne(patientId);
+
+        // THEN
+        assertThat(found).isNotNull();
+        assertThat(found.getFirstName()).isEqualTo("Connor");
+        assertThat(found.getLastName()).isEqualTo("Sullivan");
+        assertThat(found.getPatientNumber()).isEqualTo("98730");
+        assertThat(found.getDateOfPassing()).isNull();
+
+        AddressEntity address = found.getAddress();
+        assertThat(address).isNotNull();
+        assertThat(address.getId()).isNotNull();
+        assertThat(address.getAddressLine1()).isEqualTo("87 Parkway Ave");
+        assertThat(address.getAddressLine2()).isEqualTo("Floor 3");
+        assertThat(address.getCity()).isEqualTo("Miami");
+        assertThat(address.getPostalCode()).isEqualTo("33101");
+
+        assertThat(found.getVisits()).isNotNull();
+        assertThat(found.getVisits()).hasSize(5);
+    }
+
+    @Test
+    @Sql(scripts = {
+            "/data/addresses.sql",
             "/data/patients.sql"
     })
     public void shouldFindAllPatients() {
