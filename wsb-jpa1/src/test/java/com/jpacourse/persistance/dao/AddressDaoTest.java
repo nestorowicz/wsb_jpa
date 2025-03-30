@@ -1,9 +1,11 @@
 package com.jpacourse.persistance.dao;
 
 import com.jpacourse.persistance.entity.AddressEntity;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,15 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@Transactional
 public class AddressDaoTest {
 
     @Autowired
     private AddressDao addressDao;
 
+    @Transactional
     @Test
     public void shouldSaveAddress() {
         // GIVEN
@@ -35,6 +38,7 @@ public class AddressDaoTest {
         assertThat(addressDao.count()).isEqualTo(entitiesCountBefore + 1);
     }
 
+    @Transactional
     @Test
     @Sql("/data/addresses.sql")
     public void shouldFindAddressById() {
@@ -49,6 +53,7 @@ public class AddressDaoTest {
         assertThat(found.getPostalCode()).isEqualTo("10001");
     }
 
+    @Transactional
     @Test
     @Sql("/data/addresses.sql")
     public void shouldFindAllAddresses() {
@@ -63,6 +68,7 @@ public class AddressDaoTest {
         assertThat(addresses).hasSize(entitiesCount);
     }
 
+    @Transactional
     @Test
     @Sql("/data/addresses.sql")
     public void shouldRemoveAddressById() {
@@ -76,6 +82,24 @@ public class AddressDaoTest {
         // THEN
         assertThat(addressDao.count()).isEqualTo(entitiesCountBefore - 1);
         assertThat(addressDao.findOne(addressId)).isNull();
+    }
+
+    @Test
+    @Sql(scripts = {
+            "/data/addresses.sql"
+    })
+    public void shouldDetectVersionConflict() {
+        // GIVEN
+        AddressEntity entity1 = addressDao.findOne(901L);
+        AddressEntity entity2 = addressDao.findOne(901L);
+        entity1.setAddressLine1("XXX");
+        addressDao.update(entity1);
+        entity2.setAddressLine1("YYY");
+
+        // TEST
+        assertThrows(OptimisticLockingFailureException.class, () -> {
+            addressDao.update(entity2);
+        });
     }
 
     private AddressEntity buildValidAddress() {

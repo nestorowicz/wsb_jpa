@@ -19,6 +19,9 @@ public class AddressEntity {
 
 	private String postalCode;
 
+	@Version
+	private Long version;
+
 	public Long getId() {
 		return id;
 	}
@@ -59,4 +62,7 @@ public class AddressEntity {
 		this.postalCode = postalCode;
 	}
 
+	public Long getVersion() {
+		return version;
+	}
 }
