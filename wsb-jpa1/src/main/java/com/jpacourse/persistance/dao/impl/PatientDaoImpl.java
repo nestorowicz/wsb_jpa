@@ -22,14 +22,12 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         }
 
         VisitEntity visit = new VisitEntity();
-        visit.setPatient(patient);
-        visit.setDoctor(doctor);
         visit.setTime(time);
         visit.setDescription(description);
 
-        patient.getVisits().add(visit);
-        doctor.getVisits().add(visit);
+        patient.addVisit(visit);
+        doctor.addVisit(visit);
 
-        entityManager.persist(visit);
+        entityManager.merge(patient);
     }
 }
